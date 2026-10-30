@@ -1,0 +1,34 @@
+{
+  "index": [
+    "create",
+    "createStore",
+    "createStoreContext",
+    "shallow",
+    "useHydrated",
+    "useShallow",
+    "useStore",
+    "watch"
+  ],
+  "vanilla": [
+    "createStore",
+    "watch"
+  ],
+  "shallow": [
+    "shallow"
+  ],
+  "persist": [
+    "getPersist",
+    "persist"
+  ],
+  "persist-async": [
+    "getPersistAsync",
+    "persistAsync"
+  ],
+  "cross-tab": [
+    "crossTab"
+  ],
+  "mutable": [
+    "mutate",
+    "produce"
+  ]
+}
