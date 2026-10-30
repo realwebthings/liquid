@@ -1,0 +1,5 @@
+{
+  "name": "liquid-monorepo",
+  "private": true,
+  "workspaces": ["packages/*", "examples/*"]
+}
