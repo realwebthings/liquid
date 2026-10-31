@@ -1,5 +1,5 @@
 'use client'
-import { createStoreContext } from 'liquid'
+import { createStoreContext } from 'lightmight'
 
 type S = { n: number; inc: () => void }
 const Local = createStoreContext<S>()

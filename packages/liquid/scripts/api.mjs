@@ -38,8 +38,8 @@ try {
 const breaking = []
 const additive = []
 for (const e of new Set([...Object.keys(oldNames), ...Object.keys(names)])) {
-  for (const n of oldNames[e] ?? []) if (!(names[e] ?? []).includes(n)) breaking.push(`removed export \`${n}\` from liquid${e === 'index' ? '' : '/' + e}`)
-  for (const n of names[e] ?? []) if (!(oldNames[e] ?? []).includes(n)) additive.push(`new export \`${n}\` in liquid${e === 'index' ? '' : '/' + e}`)
+  for (const n of oldNames[e] ?? []) if (!(names[e] ?? []).includes(n)) breaking.push(`removed export \`${n}\` from lightmight${e === 'index' ? '' : '/' + e}`)
+  for (const n of names[e] ?? []) if (!(oldNames[e] ?? []).includes(n)) additive.push(`new export \`${n}\` in lightmight${e === 'index' ? '' : '/' + e}`)
 }
 for (const f of new Set([...Object.keys(oldTypes), ...Object.keys(types)])) {
   const a = oldTypes[f], b = types[f]

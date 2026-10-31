@@ -1,4 +1,4 @@
-// Shared by `liquid/persist` (sync) and `liquid/persist-async`. Not a public entry.
+// Shared by `lightmight/persist` (sync) and `lightmight/persist-async`. Not a public entry.
 export const encode = (state: unknown, version: number) =>
   JSON.stringify({ state, version })
 

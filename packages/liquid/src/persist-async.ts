@@ -1,5 +1,5 @@
 // ASYNC persistence: storage whose getItem/setItem return Promises (IndexedDB,
-// React Native AsyncStorage, a server). For localStorage use `liquid/persist`.
+// React Native AsyncStorage, a server). For localStorage use `lightmight/persist`.
 import { decode, encode, type Hydration } from './persist-core'
 import type { Initializer } from './vanilla'
 
@@ -79,7 +79,7 @@ export const persistAsync =
     // Nothing is saved before the first load: it would overwrite stored data with defaults.
     api.subscribe(() => hydrating || !hydrated || save())
 
-    // Never inside init (see liquid/persist); here the wait is real, so use useHydrated.
+    // Never inside init (see lightmight/persist); here the wait is real, so use useHydrated.
     queueMicrotask(async () => {
       try {
         const raw = await storage.getItem(name)

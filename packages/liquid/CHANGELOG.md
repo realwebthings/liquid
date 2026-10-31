@@ -1,38 +1,38 @@
 # Changelog
 
-All notable changes to `liquid` are recorded here.
+All notable changes to `lightmight` are recorded here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions follow [SemVer](https://semver.org/). Nothing is published yet, so everything below
 is the first release's baseline: the changes under "Changed" are pre-release design changes,
 not breaking changes for any user. From the first release on, `npm run api` blocks any
 removed or changed export without a major version.
 
-## [Unreleased]
+## [0.1.0] - 2026-10-31
 
 ### Added
-- `createStore(init)` (`liquid/vanilla`): closure store with `getState`, `setState`
+- `createStore(init)` (`lightmight/vanilla`): closure store with `getState`, `setState`
   (partial or updater, shallow merge), `subscribe`, `getInitialState`. No React dependency.
   Initializer receives `(set, get, api)`.
-- `watch(store, selector, listener, equal?)` (`liquid/vanilla`): listen to one slice outside React.
+- `watch(store, selector, listener, equal?)` (`lightmight/vanilla`): listen to one slice outside React.
 - `useStore(store, selector?)`: React binding on `useSyncExternalStore`; the server snapshot
   is `getInitialState()` so hydration matches.
-- `shallow(a, b)` (`liquid/shallow`) and `useShallow(selector)` for selectors that return
+- `shallow(a, b)` (`lightmight/shallow`) and `useShallow(selector)` for selectors that return
   new objects or arrays.
 - `create(init)`: returns a hook that also carries the store API, so state can be read and
   written outside React with no render.
 - `createStoreContext<T>()`: `Provider`, `useStore`, `useStoreApi`. Per-request stores for SSR
   and isolated local state per subtree.
-- **Sync persistence** `persist(init, options)` (`liquid/persist`): `localStorage`-style storage.
+- **Sync persistence** `persist(init, options)` (`lightmight/persist`): `localStorage`-style storage.
   Options `name`, `storage`, `partialize`, `version`, `migrate`. Status via `getPersist(store)`.
-- **Async persistence** `persistAsync(init, options)` (`liquid/persist-async`): Promise-based
+- **Async persistence** `persistAsync(init, options)` (`lightmight/persist-async`): Promise-based
   storage (IndexedDB, AsyncStorage). Same options plus a required `storage` and `onError`;
   `getPersistAsync(store).flush()`. Writes are ordered, coalesced, and latest-state-wins.
 - Sync and async are separate imports with separate storage types (`SyncStorageLike`,
   `AsyncStorageLike`). Passing one kind to the other is a compile error.
-- `crossTab(persist(...))` (`liquid/cross-tab`): apply saves from other tabs; sync only.
+- `crossTab(persist(...))` (`lightmight/cross-tab`): apply saves from other tabs; sync only.
   `crossTab(persistAsync(...))` is a compile error.
 - `useHydrated(store)`: works with both persist kinds; avoids a flash of default values.
-- `produce(base, recipe)` and `mutate(store, recipe)` (`liquid/mutable`): Proxy/Reflect
+- `produce(base, recipe)` and `mutate(store, recipe)` (`lightmight/mutable`): Proxy/Reflect
   copy-on-write drafts, so `d.a.b = 1` and `d.list.push(x)` produce new immutable state.
 - `'use client'` banner on the main entry; the other entries stay usable from server code.
 - ESM and CJS builds with `.d.ts` and `.d.cts` types, `exports` map with `typesVersions`,

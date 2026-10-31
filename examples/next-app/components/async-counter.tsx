@@ -1,6 +1,6 @@
 'use client'
-import { create, useHydrated } from 'liquid'
-import { persistAsync, type AsyncStorageLike } from 'liquid/persist-async'
+import { create, useHydrated } from 'lightmight'
+import { persistAsync, type AsyncStorageLike } from 'lightmight/persist-async'
 
 // Stand-in for IndexedDB / AsyncStorage: same shape, every call is slow and async.
 const slowStorage: AsyncStorageLike = {
@@ -12,7 +12,7 @@ type S = { n: number; inc: () => void }
 const useAsyncCount = create<S>(
   persistAsync(
     (set) => ({ n: 0, inc: () => set((s) => ({ n: s.n + 1 })) }),
-    { name: 'liquid-demo-async', storage: slowStorage },
+    { name: 'lightmight-demo-async', storage: slowStorage },
   ),
 )
 

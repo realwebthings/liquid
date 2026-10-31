@@ -13,7 +13,7 @@ export default async function Page({
   const { user = 'guest' } = await searchParams
   return (
     <main>
-      <h1>liquid demo</h1>
+      <h1>lightmight demo</h1>
       <UserProvider user={user}>
         <Profile />
       </UserProvider>

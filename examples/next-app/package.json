@@ -14,7 +14,7 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
-    "liquid": "^0.0.0",
+    "lightmight": "^0.1.0",
     "next": "^16.4.3",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"

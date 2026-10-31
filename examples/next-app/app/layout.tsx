@@ -1,4 +1,4 @@
-export const metadata = { title: 'liquid demo' }
+export const metadata = { title: 'lightmight demo' }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

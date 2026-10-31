@@ -1,5 +1,5 @@
 // SYNC persistence: storage whose getItem/setItem return values directly
-// (localStorage, sessionStorage). For async storage use `liquid/persist-async`.
+// (localStorage, sessionStorage). For async storage use `lightmight/persist-async`.
 import { decode, encode, type Hydration } from './persist-core'
 import type { Initializer } from './vanilla'
 

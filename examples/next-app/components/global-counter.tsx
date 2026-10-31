@@ -1,7 +1,7 @@
 'use client'
-import { create, useHydrated } from 'liquid'
-import { crossTab } from 'liquid/cross-tab'
-import { persist } from 'liquid/persist'
+import { create, useHydrated } from 'lightmight'
+import { crossTab } from 'lightmight/cross-tab'
+import { persist } from 'lightmight/persist'
 
 // client-only global singleton: never written on the server, so no leak
 type S = { count: number; inc: () => void }
@@ -12,7 +12,7 @@ const useCount = create<S>(
         count: 0,
         inc: () => set((s) => ({ count: s.count + 1 })),
       }),
-      { name: 'liquid-demo-count' },
+      { name: 'lightmight-demo-count' },
     ),
   ),
 )

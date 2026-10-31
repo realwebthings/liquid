@@ -1,5 +1,5 @@
 {
-  "name": "liquid-monorepo",
+  "name": "lightmight-monorepo",
   "private": true,
   "workspaces": ["packages/*", "examples/*"]
 }

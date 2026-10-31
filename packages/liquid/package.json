@@ -1,6 +1,11 @@
 {
-  "name": "liquid",
-  "version": "0.0.0",
+  "name": "lightmight",
+  "version": "0.1.0",
+  "description": "Tiny React/Next state management: ~360 B closure store, opt-in persist, cross-tab, and mutable updates.",
+  "license": "MIT",
+  "author": "realwebthings",
+  "keywords": ["react", "nextjs", "state", "state-management", "store", "hooks", "zustand", "persist", "typescript"],
+  "publishConfig": { "access": "public" },
   "type": "module",
   "scripts": {
     "test": "vitest run",

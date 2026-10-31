@@ -1,4 +1,4 @@
-import { createStoreContext } from 'liquid'
+import { createStoreContext } from 'lightmight'
 
 export type UserState = {
   user: string

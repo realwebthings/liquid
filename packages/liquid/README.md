@@ -1,17 +1,18 @@
-# liquid
+# lightmight
 
 Tiny React state management. A store is a closure, a hook is `useSyncExternalStore`.
 About 360 B min+gzip for `create`, no dependencies, `react >= 18` as a peer.
 Every extra feature is its own import: you only ship what you import.
 
 ```bash
-npm i liquid
+npm i lightmight
+# or: yarn add lightmight / pnpm add lightmight
 ```
 
 ## Quick start
 
 ```tsx
-import { create } from 'liquid'
+import { create } from 'lightmight'
 
 const useCounter = create<{ count: number; inc: () => void }>((set) => ({
   count: 0,
@@ -40,10 +41,10 @@ useCounter.subscribe((state, prev) => {}) // returns an unsubscribe function
 
 - A write before the first render is what the first render sees.
 - A write while components are mounted re-renders only those that selected the changed data.
-- Need no React at all (Node, workers, server code)? Import from `liquid/vanilla`:
+- Need no React at all (Node, workers, server code)? Import from `lightmight/vanilla`:
 
 ```ts
-import { createStore } from 'liquid/vanilla'
+import { createStore } from 'lightmight/vanilla'
 const store = createStore(() => ({ token: null as string | null }))
 store.setState({ token: 'abc' })
 ```
@@ -69,7 +70,7 @@ fields keep their reference. If an updater returns the same state object, nothin
 is notified. Setting a field to the value it already has still notifies, but
 selectors stop any re-render.
 
-### `createStore<T>(init) => Store<T>` (`liquid/vanilla`)
+### `createStore<T>(init) => Store<T>` (`lightmight/vanilla`)
 The same store without the hook: `getState`, `setState`, `subscribe`, `getInitialState`.
 
 ### `useStore(store, selector?)`
@@ -80,11 +81,11 @@ A selector must return the same reference when nothing relevant changed.
 Returning a fresh object or array every call loops in React. Wrap it:
 
 ```tsx
-import { useShallow } from 'liquid'
+import { useShallow } from 'lightmight'
 const { a, b } = useStore(useShallow((s) => ({ a: s.a, b: s.b })))
 ```
 
-`shallow` compares one level deep and is also exported from `liquid/shallow`.
+`shallow` compares one level deep and is also exported from `lightmight/shallow`.
 
 ### `createStoreContext<T>()` (per-request and local state)
 Returns `{ Provider, useStore, useStoreApi }`. Each `Provider` creates its own store from
@@ -113,7 +114,7 @@ Run a side effect when one slice changes, outside React. Fires only when the sel
 value changes (`Object.is`, or your `equal`, e.g. `shallow`). Returns an unsubscribe function.
 
 ```ts
-import { watch } from 'liquid/vanilla'
+import { watch } from 'lightmight/vanilla'
 const off = watch(useAuth, (s) => s.token, (token, prev) => api.setToken(token))
 ```
 
@@ -124,7 +125,7 @@ and the compiler rejects mixing them.
 
 | | **Sync** | **Async** |
 |---|---|---|
-| Import | `liquid/persist` | `liquid/persist-async` |
+| Import | `lightmight/persist` | `lightmight/persist-async` |
 | Function | `persist` | `persistAsync` |
 | Storage | `localStorage`, `sessionStorage` (`getItem` returns a value) | IndexedDB, React Native AsyncStorage, a server (`getItem` returns a Promise) |
 | Type | `SyncStorageLike` | `AsyncStorageLike` |
@@ -134,10 +135,10 @@ and the compiler rejects mixing them.
 | Same on both | `name`, `partialize`, `version`, `migrate`, `useHydrated(store)` | |
 
 ```ts
-import { persist } from 'liquid/persist'
+import { persist } from 'lightmight/persist'
 const useA = create<S>(persist(init, { name: 'a' }))                        // localStorage
 
-import { persistAsync } from 'liquid/persist-async'
+import { persistAsync } from 'lightmight/persist-async'
 const useB = create<S>(persistAsync(init, { name: 'b', storage: idbStorage })) // async
 ```
 
@@ -158,7 +159,7 @@ so server HTML and the first client render match. The saved value appears one re
 - Corrupt data and blocked storage are ignored; the store keeps working.
 - `getInitialState()` stays the pre-load state, which is what the server rendered.
 
-### `persist(init, options)` (sync, `liquid/persist`)
+### `persist(init, options)` (sync, `lightmight/persist`)
 
 | Option | Default | |
 |---|---|---|
@@ -176,7 +177,7 @@ persist(init, {
 })
 ```
 
-### `persistAsync(init, options)` (async, `liquid/persist-async`)
+### `persistAsync(init, options)` (async, `lightmight/persist-async`)
 
 Same `name`, `partialize`, `version`, `migrate`, plus:
 
@@ -199,11 +200,11 @@ const useDoc = create<S>(persistAsync(init, { name: 'doc', storage: idbStorage, 
   (await it before closing a window or running a test).
 - There is no cross-tab sync for async storage, because async storage has no change events.
 
-### `crossTab(persist(...))` (`liquid/cross-tab`, sync only)
+### `crossTab(persist(...))` (`lightmight/cross-tab`, sync only)
 Apply saves made in other tabs. Wrap a sync `persist` directly:
 
 ```ts
-import { crossTab } from 'liquid/cross-tab'
+import { crossTab } from 'lightmight/cross-tab'
 const useCount = create<S>(crossTab(persist(init, { name: 'count' })))
 ```
 
@@ -242,12 +243,12 @@ const useUsers = create<S>((set) => ({
 
 Nothing special is needed, and nothing is added to the library for it.
 
-## Mutable-style updates: `produce` and `mutate` (`liquid/mutable`)
+## Mutable-style updates: `produce` and `mutate` (`lightmight/mutable`)
 Optional. Write plain mutations and get a new immutable state. Built on `Proxy` and
 `Reflect`; only the objects on the written path are copied.
 
 ```ts
-import { mutate } from 'liquid/mutable'
+import { mutate } from 'lightmight/mutable'
 
 mutate(useStore, (d) => {
   d.user.name = 'z'
@@ -284,7 +285,7 @@ export function UserProvider({ user, children }: { user: string; children: React
 }
 ```
 
-3. Import `liquid/vanilla` or `liquid/shallow` from server code. The main entry is a client module.
+3. Import `lightmight/vanilla` or `lightmight/shallow` from server code. The main entry is a client module.
 
 On the server the hook reads `getInitialState()`, so server output never depends on later writes.
 
@@ -296,7 +297,7 @@ package and fails if any row grows past its budget.
 
 | You import | gzip |
 |---|---|
-| `createStore` (`liquid/vanilla`, no React) | 226 B |
+| `createStore` (`lightmight/vanilla`, no React) | 226 B |
 | `watch` (includes `createStore`) | 280 B |
 | `create` | 356 B |
 | `useStore` + `createStore` | 344 B |
@@ -329,9 +330,9 @@ bundle only what they import.
 
 ## Stability
 
-`liquid` follows SemVer. The public API is every export of every entry (`liquid`,
-`liquid/vanilla`, `liquid/shallow`, `liquid/persist`, `liquid/persist-async`, `liquid/cross-tab`,
-`liquid/mutable`) and its types. `api/` holds a snapshot of it, and `npm run api` fails the
+`lightmight` follows SemVer. The public API is every export of every entry (`lightmight`,
+`lightmight/vanilla`, `lightmight/shallow`, `lightmight/persist`, `lightmight/persist-async`, `lightmight/cross-tab`,
+`lightmight/mutable`) and its types. `api/` holds a snapshot of it, and `npm run api` fails the
 build if a name is removed, or a signature is changed or removed. Such a change needs a new
 major version. Additions only need `npm run api:update` and a CHANGELOG entry.
 `prepublishOnly` runs `npm run verify` (types, tests, build, size budgets, API check).
@@ -343,9 +344,9 @@ and `node16` (ESM and CJS) resolution with `skipLibCheck: false`.
 
 ```bash
 npm run verify              # everything a release needs
-npm test -w liquid          # vitest: runtime, compile-time types, garbage collection
-npm run build -w liquid     # tsup + tsc declarations
-npm run size -w liquid      # per-export bundle cost, fails over budget
-npm run api -w liquid       # public API guard (api:update to accept a change)
+npm test -w lightmight          # vitest: runtime, compile-time types, garbage collection
+npm run build -w lightmight     # tsup + tsc declarations
+npm run size -w lightmight      # per-export bundle cost, fails over budget
+npm run api -w lightmight       # public API guard (api:update to accept a change)
 npm run dev -w next-app     # example app
 ```
